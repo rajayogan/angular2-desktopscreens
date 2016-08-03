@@ -15,7 +15,7 @@ module.exports = {
       '@angular/router',
       '@angular/http'
     ],
-	'app': './app/app'
+	'app': './app/main'
   },
 
   output: {
@@ -27,7 +27,12 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['','.ts','.js','.json', '.css', '.html']
+    extensions: ['','.ts','.js','.json', '.css', '.html'],
+    alias: {
+      materializecss: 'materialize-css/dist/css/materialize.css',
+      materialize: 'materialize-css/dist/js/materialize.js',
+      //... 
+    }
   },
 
   module: {
@@ -36,12 +41,26 @@ module.exports = {
         test: /\.ts$/,
         loader: 'ts',
         exclude: [ /node_modules/ ]
-      }
+      },
+      {
+        test: /materialize-css\/dist\/js\/materialize\.js/,
+        loader: 'imports?materializecss'
+      },
+      { test: /materialize\.css$/,   loader: 'style-loader!css-loader' },
+      { test: /^((?!materialize).)*\.css$/,   loader: 'raw-loader' },
+      { test: /.(png|woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/, loader: 'url-loader?limit=100000' },
     ]
   },
 
   plugins: [
     new CommonsChunkPlugin({ name: 'angular2', filename: 'angular2.js', minChunks: Infinity }),
-    new CommonsChunkPlugin({ name: 'common',   filename: 'common.js' })
-  ]
+    new CommonsChunkPlugin({ name: 'common',   filename: 'common.js' }),
+    new webpack.ProvidePlugin({
+          $: "jquery",
+          jQuery: "jquery",
+          "window.jQuery": "jquery",
+          Hammer: "hammerjs/hammer"
+      })
+  ],
+  target: 'electron-renderer'
 };

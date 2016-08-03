@@ -1,0 +1,26 @@
+<div materialize>
+<form class="col s12">
+  <div class="row">
+    <div class="input-field col s6">
+      <input id="first_name" type="text" class="validate" [(ngModel)]="subr">
+      <label for="first_name">Enter subreddit</label>
+    </div>
+  </div>
+  <button class="waves-effect waves-light btn" (click)="makecall()"><i class="material-icons right">cloud</i>Go</button>
+</form>
+<div *ngIf="showcards" class="col s12 m7">
+    <div class="card horizontal" *ngFor="let entry of entries">
+      <div class="card-image">
+        <img src={{entry.image}} width="70" height="70">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <p>{{entry.title}}</p>
+        </div>
+        <div class="card-action">
+          <a href="#" (click)="openlinks(entry.url)">Read More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
