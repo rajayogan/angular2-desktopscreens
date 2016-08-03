@@ -1,4 +1,4 @@
-# angular2-desktop
-A simple application demonstrating how to make desktop apps using Angular 2 and electron.
+# angular2-desktopscreens
+A simple application demonstrating how to use material design in your angular2 + electron desktop apps.
 
 
